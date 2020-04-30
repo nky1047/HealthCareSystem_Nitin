@@ -4,23 +4,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.data.annotation.Transient;
 
 @Entity
 public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private String password;
-	private String name;
-	private String gender;
-	private String email;
-	private String userRole;
-	public int getId() {
+	private Integer id;
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
+	//@Transient
+	private String password;
+	//@NotEmpty(message = "Please provide your name")
+	private String name;
+	private String gender;
+	//@Email(message = "Please provide a valid e-mail")
+	//@NotEmpty(message = "Please provide an e-mail")
+	private String email;
+	private String userRole;
+	
+	
+	
+	
 	public String getPassword() {
 		return password;
 	}
@@ -56,6 +68,8 @@ public class Admin {
 		return "Admin [id=" + id + ", password=" + password + ", name=" + name + ", gender=" + gender + ", email="
 				+ email + ", userRole=" + userRole + "]";
 	}
+	
+	
 	
 	
 	

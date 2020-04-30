@@ -1,8 +1,10 @@
 package org.com.dao;
 
+import org.com.model.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository("customerRepository")
-public class CustomerRepository {
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 	
 }
