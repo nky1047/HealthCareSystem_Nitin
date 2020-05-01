@@ -8,8 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class Customer {
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	private String name;
 	private String password;
 	private String gender;
@@ -17,10 +17,12 @@ public class Customer {
 	private int age;
 	private String userRole;
 	private long phoneno;
-	public int getId() {
+	
+	
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -68,8 +70,13 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", password=" + password + ", gender=" + gender + ", email="
-				+ email + ", age=" + age + ", userRole=" + userRole + ", phoneno=" + phoneno + "]";
+				+ email + ", age=" + age + ", userRole=" + userRole + ", phoneno=" + phoneno + ", getId()=" + getId()
+				+ ", getName()=" + getName() + ", getPassword()=" + getPassword() + ", getGender()=" + getGender()
+				+ ", getEmail()=" + getEmail() + ", getAge()=" + getAge() + ", getUserRole()=" + getUserRole()
+				+ ", getPhoneno()=" + getPhoneno() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
+	
 	
 	
 }

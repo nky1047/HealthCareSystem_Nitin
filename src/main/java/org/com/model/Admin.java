@@ -12,26 +12,21 @@ import org.springframework.data.annotation.Transient;
 @Entity
 public class Admin {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	private String password;
+	private String name;
+	private String gender;
+	private String email;
+	private String userRole;
+	
+	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	//@Transient
-	private String password;
-	//@NotEmpty(message = "Please provide your name")
-	private String name;
-	private String gender;
-	//@Email(message = "Please provide a valid e-mail")
-	//@NotEmpty(message = "Please provide an e-mail")
-	private String email;
-	private String userRole;
-	
-	
-	
 	
 	public String getPassword() {
 		return password;
