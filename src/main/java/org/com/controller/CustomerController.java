@@ -31,28 +31,25 @@ public class CustomerController {
 	@Autowired
 	CustomerRepository dao;
 
+	// SHOW ALL CUSTOMERS
 	@GetMapping("/getUser")
 	public List<Customer> getAllCustomer() {
 		return dao.findAll();
 	}
 
+	// SERCH CUSTOMER
 	@RequestMapping("/getUser/{id}")
-	@ExceptionHandler(RecordNotFoundException.class)
 	public ResponseEntity<?> findProduct1(@PathVariable("id") int uid) {
 		Optional<Customer> findById = dao.findById(uid);
-		try {
-			if (findById.isPresent()) {
-				Customer usr = findById.get();
-				return new ResponseEntity<Customer>(usr, HttpStatus.OK);
-			} else
-				throw new RecordNotFoundException("Record not Found Exception!!!");
-		} catch (RecordNotFoundException e) {
+		if (findById.isPresent()) {
+			Customer usr = findById.get();
+			return new ResponseEntity<Customer>(usr, HttpStatus.OK);
+		} else
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
 
-			return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
-		}
 	}
 
-	//Add CUSTOMER
+	// Add CUSTOMER
 	@PostMapping("/getUser")
 	public Customer saveCustomer(@Valid @RequestBody Customer customer) {
 		return dao.save(customer);
@@ -69,8 +66,7 @@ public class CustomerController {
 	 * HttpStatus.NOT_FOUND); } }
 	 */
 
-	
-	//DELETE CUSTOMER
+	// DELETE CUSTOMER
 	@DeleteMapping("/getUser/{id}")
 	public String removeCustomer(@PathVariable("id") int uid) {
 		Optional<Customer> findById = dao.findById(uid);
@@ -81,23 +77,27 @@ public class CustomerController {
 		return "Customer Not Found!!!";
 	}
 
-	
-	//COUNT CUSTOMER
+	// COUNT CUSTOMER
 	@GetMapping("/getCount")
 	public String getCount() {
 		return "Total No. of Records are : " + dao.count();
 	}
 
-	
-	//UPDATE CUSTOMER
-	@PutMapping("/getUser/{id}")
-	public String updateUser(@RequestBody Customer usr) {
-		Optional<Customer> findById = dao.findById(usr.getId());
-		if (findById.isPresent()) {
-			dao.save(usr);
-			return "User details have been Updated!!";
+	// UPDATE CUSTOMER
+	@PutMapping("/getUser/")
+	public ResponseEntity<Customer> updateProduct(@Valid @RequestBody Customer customer) {
+
+		Optional<Customer> findById = dao.findById(customer.getId());
+		try {
+			if (findById.isPresent()) {
+				dao.save(customer);
+				return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+			} else {
+				throw new RecordNotFoundException("Record not present");
+			}
+		} catch (RecordNotFoundException e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		return "User not Found!!";
 	}
 
 }
