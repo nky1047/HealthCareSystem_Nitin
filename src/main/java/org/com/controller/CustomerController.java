@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/usr")
-@CrossOrigin(value = "http://localhost:4200", maxAge = 80)
+@CrossOrigin(value = "http://localhost:4200")
 public class CustomerController {
 	@Autowired
 	CustomerRepository dao;
@@ -37,9 +37,9 @@ public class CustomerController {
 		return dao.findAll();
 	}
 
-	// SERCH CUSTOMER
+	// SEARCH CUSTOMER
 	@RequestMapping("/getUser/{id}")
-	public ResponseEntity<?> findProduct1(@PathVariable("id") int uid) {
+	public ResponseEntity<Customer> findProduct1(@PathVariable("id") int uid) {
 		Optional<Customer> findById = dao.findById(uid);
 		if (findById.isPresent()) {
 			Customer usr = findById.get();
@@ -63,7 +63,7 @@ public class CustomerController {
 	 * ResponseEntity<Customer>(usr, HttpStatus.OK); } else throw new
 	 * RecordNotFoundException("Record Already Present!!"); } catch
 	 * (RecordNotFoundException e) { return new ResponseEntity(e.getMessage(),
-	 * HttpStatus.NOT_FOUND); } }
+	 * HttpStatus.NOT_FOUND); } }	
 	 */
 
 	// DELETE CUSTOMER
@@ -99,5 +99,6 @@ public class CustomerController {
 			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
+	
 
 }
