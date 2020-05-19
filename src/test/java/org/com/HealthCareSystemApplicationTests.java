@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 class HealthCareSystemApplicationTests	 {
 	
 	static Logger logger = LoggerFactory.getLogger(HealthCareSystemApplicationTests.class);
-
 	
 	RestTemplate restTemplate;
 	@BeforeEach
@@ -26,7 +25,7 @@ class HealthCareSystemApplicationTests	 {
 	
 	@Test
 	public void searchAdminRecord() {
-		Admin admin = restTemplate.getForObject("http://localhost:9090/admin/searchAdmin/1003", Admin.class);
+		Admin admin = restTemplate.getForObject("http://localhost:9090/admin/getAdmin/5", Admin.class);
 		Assertions.assertNotNull(admin);
 		logger.info("Search Admin Works!!");
 	}
@@ -39,9 +38,9 @@ class HealthCareSystemApplicationTests	 {
 		admin.setEmail("abhijeet@gmail.com");
 		admin.setGender("Male");
 		admin.setUserRole("admin");
-		ResponseEntity<Admin> postForEntity = restTemplate.postForEntity("http://localhost:9090/admin/addAdmin/",admin, Admin.class);
+		ResponseEntity<Admin> postForEntity = restTemplate.postForEntity("http://localhost:9090/admin/getAdmin/",admin, Admin.class);
 		Assertions.assertNotNull(postForEntity);
-		logger.info("Add Admin Works!!");
+		logger.info("Add Admin Works!!");	
 	}
-
+	
 }

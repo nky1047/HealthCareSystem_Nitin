@@ -1,14 +1,17 @@
 package org.com.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.com.dao.AdminRepository;
+import org.com.dao.UserRepository;
 import org.com.exception.RecordNotFoundException;
 import org.com.model.Admin;
-import org.com.service.AdminService;
+import org.com.model.User;
+import org.com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,52 +25,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/usr")
 @CrossOrigin(value = "http://localhost:4200")
-public class AdminController {
-	
+public class UserController {
 	@Autowired
-	AdminService service;
+	UserService service;
 
-
-	//Add ADMIN
-	@PostMapping("/getAdmin")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public Admin saveAdmin(@RequestBody Admin admin) {
-		return service.saveAdmin(admin);
+	// SHOW ALL USERS
+	@GetMapping("/getUser")
+	public List<User> getAllUsers() {
+		return service.getAllUsers();
 	}
 
-	// SHOW ALL ADMINS
-	@GetMapping("/getAdmin")
-	public List<Admin> showAllAdmin() {
-		return service.showAllAdmin();
-	}
-	
-	//SEARCH ADMIN
-	@RequestMapping("/getAdmin/{id}")
-	public ResponseEntity<?> findAdmin(@PathVariable("id") int uid) {
-			return service.findAdmin(uid);
-	}
-	
-	//DELETE ADMIN
-	@DeleteMapping("/getAdmin/{id}")
-	public String removeAdmin(@PathVariable("id") int uid) {
-		return service.removeAdmin(uid);
+	// SEARCH USER
+	@RequestMapping("/getUser/{id}")
+	public ResponseEntity<User> findUser(@PathVariable("id") int uid) {
+		return service.findUser(uid);
 	}
 
-	
-	//COUNT ADMINS
+	// Add USER
+	@PostMapping("/getUser")
+	public ResponseEntity<User> saveUser(@RequestBody User user) {
+		return service.saveUser(user);
+	}
+
+	// DELETE USER
+	@DeleteMapping("/getUser/{id}")
+	public String removeUser(@PathVariable("id") int uid) {
+		return service.removeUser(uid);
+	}
+
+	// COUNT USER
 	@GetMapping("/getCount")
-	public String getTotalCount() {
-		return service.getTotalCount();
+	public String getCount() {
+		return service.getCount();
 	}
 
-	
-	//UPDATE ADMIN
-	@PutMapping("/getAdmin/")
-	public ResponseEntity<Admin> updateAdmin(@Valid @RequestBody Admin admin) {
-		return service.updateAdmin(admin);
+	// UPDATE USER
+	@PutMapping("/getUser/")
+	public String updateProduct(@Valid @RequestBody User user) {
+		return service.updateUser(user);
 	}
-
-
 }
